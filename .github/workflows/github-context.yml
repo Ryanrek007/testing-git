@@ -1,5 +1,5 @@
 name: Output Github Context
-on: push
+on: workflow_dispatch
 
 jobs:
   test:
