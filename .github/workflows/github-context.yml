@@ -2,12 +2,13 @@ name: Output Github Context
 on: workflow_dispatch
 
 jobs:
-  name: Testing Github context
-  runs-on: ubunt-latest
-  steps:
-    - name: Getting Github context from this repo
-      env: 
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run : |
-        echo "$GITHUB_CONTEXT"
-        echo "selesai."
+  test:
+    name: Test Github Context
+    runs-on: ubuntu-latest
+    steps:
+      - name: Getting Github context from this repo
+        env: 
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run : |
+          echo "$GITHUB_CONTEXT"
+          echo "selesai."
