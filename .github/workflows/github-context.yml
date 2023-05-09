@@ -3,8 +3,11 @@ on:
   pull_request:
     types:
       - opened
-  workflow_dispatch:
-
+  workflow_dispatch: 
+  push:
+     branches:
+       - dev
+       - test
 jobs:
   test:
     name: Test Github Context
