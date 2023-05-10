@@ -67,9 +67,10 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: dist
+          name: dist and nodem modules-files
           path: |
             dist/
+            node_modules/
             package.json
 
   deploy:
