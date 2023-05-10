@@ -43,6 +43,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     timeout-minutes: 3
+    outputs:
+      output_file: ${{ steps.publish-id.outputs.output_file}}
     steps:
       - name: Check Environment Server of Runner
         run: |
@@ -77,6 +79,10 @@ jobs:
       - name: Output Content
         run: ls -a
 
+      - name: publish JS filename
+        id : publish-id
+        run: find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT ';'
+
   deploy:
     name: Deploy Jobs
     runs-on: ubuntu-latest
@@ -89,7 +95,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-
+      - name: output filename from build jobs
+        run: echo  "${{ needs.build.outputs.output_file}}"
+        
       - name: Output Content after getting artifact
         run: ls -a
 
