@@ -72,11 +72,22 @@ jobs:
             dist/
             package.json
 
+      - name: Output Content
+        run: ls
+
   deploy:
     name: Deploy Jobs
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Getting Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+      - name: Output Content
+        run: ls
+        
       - name: Execute deploy job
         run: |
           echo "Deploying jobs ..."
