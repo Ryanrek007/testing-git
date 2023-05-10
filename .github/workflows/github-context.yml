@@ -9,6 +9,7 @@ on:
        - dev
        - test
        - relase/**
+       - asik
 
 jobs:
   test:
