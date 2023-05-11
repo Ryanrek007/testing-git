@@ -95,8 +95,8 @@ jobs:
       - name: publish JS filename
         id : publish-id
         run: |
-          find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT ';'
-          echo 'asik=musik' >> $GITHUB_OUTPUT ';'
+          find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT
+          echo 'asik=musik' >> $GITHUB_OUTPUT
 
       - name: Testing file
         run: |
