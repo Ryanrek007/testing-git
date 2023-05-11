@@ -51,6 +51,7 @@ jobs:
     timeout-minutes: 3
     outputs:
       output_file: ${{ steps.publish-id.outputs.output_file}}
+      output_file2: ${{ steps.publish-id.outputs.asik }}
     steps:
       - name: Check Environment Server of Runner
         run: |
@@ -95,12 +96,12 @@ jobs:
         id : publish-id
         run: |
           find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT ';'
-          echo 'asik=musik' >> $GITHUB_OUTPUT
+          echo 'asik=musik' >> $GITHUB_OUTPUT ';'
 
       - name: Testing file
         run: |
           echo "ini adalah hasil dari publish-id output 1:${{ steps.publish-id.outputs.output_file}}"
-          echo "ini hasil kedua: ${{steps.publish-id.outputs.asik}}"
+          echo "ini hasil kedua: ${{ steps.publish-id.outputs.asik }}"
 
   deploy:
     name: Deploy Jobs
@@ -115,7 +116,9 @@ jobs:
         with:
           name: dist
       - name: output filename from build jobs
-        run: echo  "${{ needs.build.outputs.output_file}}"
+        run: |
+          echo  "${{ needs.build.outputs.output_file}}"
+          echo "new output: ${{ needs.build.outputs.output_file2 }}"
         
       - name: Output Content after getting artifact
         run: ls -a
