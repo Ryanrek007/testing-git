@@ -28,6 +28,12 @@ jobs:
         with:
           node-version: '18'
 
+      - name: using cache for Node
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+
       - name: Installing Dependencies
         run: npm ci
 
@@ -61,6 +67,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      
+      - name: using cache for Node
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Installing Dependencies
         run: npm ci
