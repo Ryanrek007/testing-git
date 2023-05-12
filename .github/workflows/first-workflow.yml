@@ -42,14 +42,14 @@ jobs:
         run : npm test
       
       - name: Upload test report
-        if: failure() && steps.run-test.outcome == 'failure'
+        if: ${{ failure() && steps.run-test.outcome == 'failure' }}
         uses: actions/upload-artifact@v3
         with:
           name: test-report
           path: index.html
 
       - name: Check list all files after testing
-        if: always()
+        if: ${{ always() }}
         run: |
           ls -lah
           echo "steps executed even run-test failed"
