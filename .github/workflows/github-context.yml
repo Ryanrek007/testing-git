@@ -10,6 +10,8 @@ on:
        - test
        - relase/**
        - asik
+env:
+  ASIK: ${{ secrets.ASIK }}
 
 jobs:
   test:
@@ -24,3 +26,20 @@ jobs:
           echo "------"
           echo "${{ env.GITHUB_CONTEXT }}"
           echo "selesai."
+
+  repository-variables:
+    name: repository variables
+    runs-on: ubuntu-latest
+    steps:
+      - name: show variables on repository
+        run: |
+           echo "${{ env.ASIK }}"
+
+  environment-variables:
+    name: environment variables
+    runs-on: ubuntu-latest
+    environment: ok
+    steps:
+      - name: show variables on environment
+        run: |
+          echo "${{ env.ASIK }}"
