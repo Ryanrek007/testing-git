@@ -11,7 +11,7 @@ on:
        - relase/**
        - asik
 env:
-  ASIK: ${{ secrets.ASIK }}
+  ASIK: ${{ vars.ASIK }}
 
 jobs:
   test:
