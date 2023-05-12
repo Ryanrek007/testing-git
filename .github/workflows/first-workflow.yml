@@ -29,13 +29,15 @@ jobs:
           node-version: '18'
           cache: "npm"
 
-      # - name: using cache for Node
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: deps-node-${{ hashFiles('**/package-lock.json') }}
+      - name: using cache for Node
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Installing Dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
 
       - name: Running Testing
@@ -80,13 +82,15 @@ jobs:
           node-version: '18'
           cache: 'npm'
       
-      # - name: using cache for Node
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.npm
-      #     key: deps-node-${{ hashFiles('**/package-lock.json') }}
-
+      - name: using cache for Node
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+  
       - name: Installing Dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: npm ci
       
       - name: Build Project
