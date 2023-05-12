@@ -139,11 +139,13 @@ jobs:
 
   report:
     name: report job
+    needs: 
+      - deploy
     if: ${{ failure() }}
     runs-on: ubuntu-latest
     steps:
       - name: report job
         run: |
           echo "something gone wrong"
-          echo ${{ github }}
+          echo ${{ toJson(github) }}
           echo "report job will executed if any jobs failed"
