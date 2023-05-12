@@ -38,12 +38,19 @@ jobs:
         run: npm ci
 
       - name: Running Testing
+        id: run-test
         run : npm test
-        
+      
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
+        if: ${{ steps.run-test.outcome == 'failure' }}
+        with:
+          name: test-report
+          path: test.json
+
       - name: Check list all files after testing
         run: |
           ls -lah
-
   build:
     name: Build Application
     runs-on: ubuntu-latest
