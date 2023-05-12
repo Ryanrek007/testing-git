@@ -137,3 +137,13 @@ jobs:
           echo "Deploying jobs ..."
           echo "done."
 
+  report:
+    name: report job
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: report job
+        run: |
+          echo "something gone wrong"
+          echo ${{ github }}
+          echo "report job will executed if any jobs failed"
