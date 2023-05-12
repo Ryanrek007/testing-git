@@ -46,10 +46,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-report
-          path: test.json
+          path: index.html
 
       - name: Check list all files after testing
-        if: failure()
+        if: always()
         run: |
           ls -lah
           echo "steps executed even run-test failed"
