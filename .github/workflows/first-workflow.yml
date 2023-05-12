@@ -107,12 +107,12 @@ jobs:
         id : publish-id
         run: |
           find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT ';'
-          echo 'asik=musik' >> $GITHUB_OUTPUT
+          echo 'asik=$(date +'%Y-%m-%dT%H%M%S')' >> $GITHUB_OUTPUT
 
       - name: Testing file
         run: |
           echo "ini adalah hasil dari publish-id output 1:${{ steps.publish-id.outputs.output_file}}"
-          echo "ini hasil kedua: ${{ steps.publish-id.outputs.asik }}"
+          echo "ini hasil kedua, tanggal: ${{ steps.publish-id.outputs.asik }}"
 
   deploy:
     name: Deploy Jobs
