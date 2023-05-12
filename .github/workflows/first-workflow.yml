@@ -147,5 +147,5 @@ jobs:
       - name: report job
         run: |
           echo "something gone wrong"
-          echo ${{ toJson(github) }}
+          echo "${{ toJson(github) }}"
           echo "report job will executed if any jobs failed"
