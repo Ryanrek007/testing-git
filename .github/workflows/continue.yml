@@ -121,28 +121,7 @@ jobs:
 
   deploy:
     name: Deploy Jobs
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Output Content before getting artifact
-        run: ls -a
-      
-      - name: Getting Build Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
-      - name: output filename from build jobs
-        run: |
-          echo  "${{ needs.build.outputs.output_file}}"
-          echo "new output: ${{ needs.build.outputs.output_file2 }}"
-        
-      - name: Output Content after getting artifact
-        run: ls -a
-
-      - name: Execute deploy job
-        run: |
-          echo "Deploying jobs ..."
-          echo "done."
+    uses: ./.github/workflows/reusable.yml
 
   report:
     name: report job
