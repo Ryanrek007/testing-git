@@ -36,7 +36,7 @@ runs:
       if: ${{ steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'}}
       run: |
         npm ci
-        echo "ini hasil dari input-output install-node=${{ inputs.caching }}" >> $GITHUB_OUTPUT
+        echo "install-node=${{ inputs.caching }}" >> $GITHUB_OUTPUT
       shell: bash 
 
     - name: outputs asik variables
