@@ -25,6 +25,8 @@ jobs:
 
       - name: load and cache dependencies
         uses: ./.github/actions/cache-dependency
+        with:
+          caching: 'false'
 
       - name: Running Testing
         id: run-test
