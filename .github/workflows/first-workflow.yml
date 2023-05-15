@@ -124,6 +124,8 @@ jobs:
 
       - name: Testing using slug
         uses: rlespinasse/github-slug-action@v4
+        with: 
+          prefix: CI_
 
       - name: Output
         run: |
@@ -154,7 +156,7 @@ jobs:
           echo "Hasil ${{ github.ref }}"
           echo "Hasil $GITHUB_REF"
           echo "hasil: ${{ env.GITHUB_REF_NAME_SLUG}}"
-          echo "   ref                 : ${{ env.GITHUB_REF_SLUG }}"
+          echo "   ref                 : ${{ env.CI_GITHUB_REF_SLUG }}"
 
 
   deploy:
