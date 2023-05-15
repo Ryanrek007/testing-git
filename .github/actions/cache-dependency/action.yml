@@ -3,7 +3,7 @@ description: Get all dependencies on node
 inputs:
   caching:
     description: whether to caching or not
-    # default: 
+    default: 'true'
     required: true
 
 runs:
