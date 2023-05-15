@@ -23,25 +23,8 @@ jobs:
       - name: Checkout / Get Code
         uses: actions/checkout@v3
 
-      - name: list all file on checkout
-        run: ls -lah
-      
-      - name: Installing Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: "npm"
-
-      - name: using cache for Node
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: node_modules/
-          key: deps-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Installing Dependencies
-        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        run: npm ci
+      - name: load and cache dependencies
+        uses: ./.github/actions/cache-dependency
 
       - name: Running Testing
         id: run-test

@@ -1,0 +1,26 @@
+name: Get Dependencies (node)
+description: Get all dependencies on node
+runs:
+  using: composite
+  steps:
+    - name: Installing Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+        cache: "npm"
+
+    - name: using cache for Node
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: node_modules/
+        key: deps-node-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Installing Dependencies
+      if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+      run: npm ci
+      shell: bash 
+    
+    - name: list all file on checkout
+      run: ls -lah
+      shell: bash
