@@ -130,7 +130,7 @@ jobs:
       - name: Output
         run: |
           echo "Partial variables"
-          echo "   repository owner    : ${{ env.GITHUB_REPOSITORY_OWNER_PART }}"
+          echo "   repository owner    : ${{ env.CI_GITHUB_REPOSITORY_OWNER_PART }}"
           echo "   repository name     : ${{ env.GITHUB_REPOSITORY_NAME_PART }}"
           echo "Slug variables"
           echo "   repository          : ${{ env.GITHUB_REPOSITORY_SLUG }}"
@@ -155,7 +155,7 @@ jobs:
           echo "Asli"
           echo "Hasil ${{ github.ref }}"
           echo "Hasil $GITHUB_REF"
-          echo "hasil: ${{ env.GITHUB_REF_NAME_SLUG}}"
+          echo "hasil: ${{ env.CI_GITHUB_REF_NAME_SLUG}}"
           echo "   ref                 : ${{ env.CI_GITHUB_REF_SLUG }}"
 
 
