@@ -4,7 +4,7 @@ inputs:
   caching:
     description: whether to caching or not
     default: "true"
-    required: false
+    # required: false
 
 runs:
   using: composite
