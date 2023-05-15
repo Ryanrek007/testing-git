@@ -118,6 +118,11 @@ jobs:
           echo "ini adalah hasil dari publish-id output 1:${{ steps.publish-id.outputs.output_file}}"
           echo "ini hasil kedua, tanggal: ${{ steps.publish-id.outputs.asik }}"
 
+      - name: testing using format
+        run: |
+          echo "${{ format(0), (github.ref == 'refs/heads/test' && vars.ASIK ) }}"
+         
+
   deploy:
     name: Deploy Jobs
     runs-on: ubuntu-latest
