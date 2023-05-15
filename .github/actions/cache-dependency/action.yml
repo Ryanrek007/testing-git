@@ -13,7 +13,7 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: "18"
-        cache: "npm"
+        # cache: "npm"
 
     - name: using cache for Node
       if: ${{ inputs.caching == 'true' }}
