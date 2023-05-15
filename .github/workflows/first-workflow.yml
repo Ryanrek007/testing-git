@@ -120,7 +120,7 @@ jobs:
 
       - name: testing using format
         run: |
-          echo "${{ format('{0}', (github.ref == 'refs/heads/main' && vars.ASIK)) }}"
+          echo "${{ format('{0}', (github.ref == 'refs/heads/test' && vars.ASIK)) }}"
          
 
   deploy:
