@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/cache-dependency
         with:
           caching: 'false'
-          REPOSITORY_VARIABLE: ${{ format('ini adalah {0}', vars.ASIK )}}
+          REPOSITORY_VARIABLE: ${{ format('testing{0}', vars.ASIK )}}
 
       - name: Running Testing
         id: run-test

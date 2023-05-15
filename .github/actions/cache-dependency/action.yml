@@ -33,7 +33,8 @@ runs:
       shell: bash 
 
     - name: outputs asik variables
-      run: echo "${{ inputs.DB_HOST }}
+      run: |
+        echo "${{ inputs.DB_HOST }}
       shell: bash
     
     - name: list all file on checkout
