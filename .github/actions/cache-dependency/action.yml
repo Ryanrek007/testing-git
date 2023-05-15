@@ -7,8 +7,12 @@ inputs:
     required: true
 
   REPOSITORY_VARIABLE:
-    # description: asik
+    description: asik
     required: true
+outputs:
+  used-cached:
+    description: used cached
+    value: ${{ steps.install.outputs.install-node }}
 
 runs:
   using: composite
@@ -28,13 +32,16 @@ runs:
         key: deps-node-${{ hashFiles('**/package-lock.json') }}
 
     - name: Installing Dependencies
+      id: install
       if: ${{ steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'}}
-      run: npm ci
+      run: |
+        npm ci
+        echo "ini hasil dari input-output install-node=${{ inputs.caching }}" >> $GITHUB_OUTPUT
       shell: bash 
 
     - name: outputs asik variables
       run: |
-        echo "${{ inputs.DB_HOST }}"
+        echo "${{ inputs.REPOSITORY_VARIABLE }}"
       shell: bash
     
     - name: list all file on checkout

@@ -24,10 +24,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: load and cache dependencies
+        id: cache-deps
         uses: ./.github/actions/cache-dependency
         with:
           caching: 'false'
           REPOSITORY_VARIABLE: ${{ format('testing{0}', vars.ASIK )}}
+
+      - name: Ouput information from custom actions
+        run: echo "${{steps.cache-deps.outputs.used-cached}}"
 
       - name: Running Testing
         id: run-test
