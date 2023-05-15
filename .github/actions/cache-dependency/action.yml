@@ -34,7 +34,7 @@ runs:
 
     - name: outputs asik variables
       run: |
-        echo "${{ inputs.DB_HOST }}
+        echo "${{ inputs.DB_HOST }}"
       shell: bash
     
     - name: list all file on checkout
