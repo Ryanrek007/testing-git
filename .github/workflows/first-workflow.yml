@@ -153,7 +153,9 @@ jobs:
           echo "Asli"
           echo "Hasil ${{ github.ref }}"
           echo "Hasil $GITHUB_REF"
-   
+          echo "hasil: ${{ env.GITHUB_REF_NAME_SLUG}}"
+          echo "   ref                 : ${{ GITHUB_REF_SLUG }}"
+
 
   deploy:
     name: Deploy Jobs
