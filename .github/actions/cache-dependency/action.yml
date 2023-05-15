@@ -6,7 +6,7 @@ inputs:
     default: 'true'
     required: true
 
-  DB_HOST:
+  REPOSITORY_VARIABLE:
     # description: asik
     required: true
 
@@ -34,7 +34,7 @@ runs:
 
     - name: outputs asik variables
       run: echo "${{ inputs.DB_HOST }}
-      shell: BASH
+      shell: bash
     
     - name: list all file on checkout
       run: ls -lah
