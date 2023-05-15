@@ -3,8 +3,8 @@ description: Get all dependencies on node
 inputs:
   caching:
     description: whether to caching or not
-    default: "true"
-    # required: false
+    # default: 
+    required: true
 
 runs:
   using: composite
