@@ -6,6 +6,10 @@ inputs:
     default: 'true'
     required: true
 
+  DB_HOST:
+    # description: asik
+    required: true
+
 runs:
   using: composite
   steps:
@@ -27,6 +31,10 @@ runs:
       if: ${{ steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'}}
       run: npm ci
       shell: bash 
+
+    - name: outputs asik variables
+      run: echo "${{ inputs.DB_HOST }}
+      shell: BASH
     
     - name: list all file on checkout
       run: ls -lah

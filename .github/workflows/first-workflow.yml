@@ -27,6 +27,7 @@ jobs:
         uses: ./.github/actions/cache-dependency
         with:
           caching: 'false'
+          DB_HOST: ${{ format('ini adalah {0}', vars.ASIK )}}
 
       - name: Running Testing
         id: run-test
