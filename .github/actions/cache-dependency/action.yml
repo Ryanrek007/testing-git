@@ -9,7 +9,7 @@ inputs:
   REPOSITORY_VARIABLE:
     description: asik
     required: true
-    default: 
+    
 outputs:
   used-cached:
     description: used cached

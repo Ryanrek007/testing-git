@@ -4,7 +4,7 @@ on:
     branches:
       - 'dev'
       - 'main'
-      - 'test'
+      - '!test'
       - '!production'
     
 jobs:
