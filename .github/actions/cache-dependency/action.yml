@@ -4,11 +4,12 @@ inputs:
   caching:
     description: whether to caching or not
     default: 'true'
-    # required: true
+    required: true
 
   REPOSITORY_VARIABLE:
     description: asik
-    # required: true
+    required: true
+    default: 
 outputs:
   used-cached:
     description: used cached
