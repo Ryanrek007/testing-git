@@ -4,11 +4,11 @@ inputs:
   caching:
     description: whether to caching or not
     default: 'true'
-    required: true
+    # required: true
 
   REPOSITORY_VARIABLE:
     description: asik
-    required: true
+    # required: true
 outputs:
   used-cached:
     description: used cached
@@ -42,7 +42,7 @@ runs:
     - name: outputs asik variables
       run: |
         echo "hasil dari inputs.caching ${{ inputs.caching }}"
-        echo "hasil dari inputs.repository_variable${{ inputs.REPOSITORY_VARIABLE }}"
+        echo "hasil dari inputs.repository_variable ${{ inputs.REPOSITORY_VARIABLE }}"
       shell: bash
     
     - name: list all file on checkout
