@@ -41,7 +41,8 @@ runs:
 
     - name: outputs asik variables
       run: |
-        echo "${{ inputs.REPOSITORY_VARIABLE }}"
+        echo "hasil dari inputs.caching ${{ inputs.caching }}"
+        echo "hasil dari inputs.repository_variable${{ inputs.REPOSITORY_VARIABLE }}"
       shell: bash
     
     - name: list all file on checkout

@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/actions/cache-dependency
         with:
           caching: 'false'
-          REPOSITORY_VARIABLE: ${{ format('testing{0}', vars.ASIK )}}
+          REPOSITORY_VARIABLE: ${{ format('testing= {0}', vars.ASIK )}}
 
       - name: Ouput information from custom actions
         run: echo "${{steps.cache-deps.outputs.used-cached}}"
