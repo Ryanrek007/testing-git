@@ -25,7 +25,7 @@ jobs:
           ls -lah
           echo "refs ke: ${{ github.ref }}"
           sleep 50
-          echo "------"
+          echo "----"
           
       - name: Checkout / Get Code
         uses: actions/checkout@v3
