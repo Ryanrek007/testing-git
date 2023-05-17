@@ -23,6 +23,7 @@ jobs:
           pwd
           node -v
           ls -lah
+          echo "refs ke: ${{ github.ref }}"
           sleep 50
           
       - name: Checkout / Get Code
