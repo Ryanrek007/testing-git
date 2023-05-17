@@ -1,0 +1,137 @@
+name: Continue error test
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'main'
+      - '!test'
+      - '!production'
+    
+jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check Environment Server of Runner
+        run: |
+          echo "Testing Runner env."
+          pwd
+          node -v
+          ls -lah
+          
+      - name: Checkout / Get Code
+        uses: actions/checkout@v3
+      
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: "npm"
+
+      - name: using cache for Node
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Installing Dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+      - name: Running Testing
+        continue-on-error: true
+        id: run-test
+        run : npm test
+      
+      - name: Upload test report
+        if: ${{ failure() && steps.run-test.outcome == 'failure' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: index.html
+
+      - name: Check list all files after testing
+        if: ${{ always() }}
+        run: |
+          ls -lah
+          echo "steps executed even run-test failed"
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: test
+    timeout-minutes: 3
+    outputs:
+      output_file: ${{ steps.publish-id.outputs.output_file}}
+      output_file2: ${{ steps.publish-id.outputs.asik }}
+    steps:
+      - name: Check Environment Server of Runner
+        run: |
+          echo "Testing Runner env."
+          pwd
+          cat /etc/os-release
+          hostnamectl
+          docker version
+      
+      - name: Checkout / Get Code
+        uses: actions/checkout@v3
+      
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: using cache for Node
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+  
+      - name: Installing Dependencies
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        run: npm ci
+      
+      - name: Build Project
+        run: npm run build
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            dist/
+            package.json
+
+      - name: Output Content
+        run: ls -a
+
+      - name: publish JS filename
+        id : publish-id
+        run: |
+          find dist/assets/*.js -type f -execdir echo 'output_file={}' >>  $GITHUB_OUTPUT ';'
+          echo 'asik=$(date +'%Y-%m-%dT%H%M%S')' >> $GITHUB_OUTPUT
+
+      - name: Testing file
+        run: |
+          echo "ini adalah hasil dari publish-id output 1:${{ steps.publish-id.outputs.output_file}}"
+          echo "ini hasil kedua, tanggal: ${{ steps.publish-id.outputs.asik }}"
+
+  deploy:
+    name: Deploy Jobs
+    uses: ./.github/workflows/reusable.yml
+
+  report:
+    name: report job
+    needs: 
+      - deploy
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: report job
+        run: |
+          echo "something gone wrong"
+          echo "${{ toJson(github) }}"
+          echo "report job will executed if any jobs failed"
