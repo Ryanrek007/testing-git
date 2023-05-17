@@ -6,6 +6,10 @@ on:
       - 'main'
       - 'test'
       - '!production'
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
     
 jobs:
   test:
@@ -19,6 +23,7 @@ jobs:
           pwd
           node -v
           ls -lah
+          sleep 50
           
       - name: Checkout / Get Code
         uses: actions/checkout@v3
