@@ -1,0 +1,51 @@
+name: Get Dependencies (node)
+description: Get all dependencies on node
+inputs:
+  caching:
+    description: whether to caching or not
+    default: 'true'
+    required: true
+
+  REPOSITORY_VARIABLE:
+    description: asik
+    required: true
+    
+outputs:
+  used-cached:
+    description: used cached
+    value: ${{ steps.install.outputs.install-node }}
+
+runs:
+  using: composite
+  steps:
+    - name: Installing Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+        # cache: "npm"
+
+    - name: using cache for Node
+      if: ${{ inputs.caching == 'true' }}
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: node_modules/
+        key: deps-node-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Installing Dependencies
+      id: install
+      if: ${{ steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'}}
+      run: |
+        npm ci
+        echo "install-node=${{ inputs.caching }}" >> $GITHUB_OUTPUT
+      shell: bash 
+
+    - name: outputs asik variables
+      run: |
+        echo "hasil dari inputs.caching ${{ inputs.caching }}"
+        echo "hasil dari inputs.repository_variable ${{ inputs.REPOSITORY_VARIABLE }}"
+      shell: bash
+    
+    - name: list all file on checkout
+      run: ls -lah
+      shell: bash
