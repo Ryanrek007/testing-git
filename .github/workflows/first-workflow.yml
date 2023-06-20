@@ -107,6 +107,10 @@ jobs:
       - name: testing using format
         run: |
           echo "${{ format('{0}', (github.ref == 'refs/heads/test' && vars.ASIK)) }}"
+          touch file.txt && ls -la
+          echo 'I can "write" without double quotes' >> file.txt \\
+            df -h && pwd && ls \\
+            cat file.txt
 
       - name: Testing using slug
         uses: rlespinasse/github-slug-action@v4
