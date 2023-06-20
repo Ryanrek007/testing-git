@@ -104,13 +104,39 @@ jobs:
           echo "ini adalah hasil dari publish-id output 1:${{ steps.publish-id.outputs.output_file}}"
           echo "ini hasil kedua, tanggal: ${{ steps.publish-id.outputs.asik }}"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.KEY_REMOTE }}
+          name: test-id-rsa # optional
+          known_hosts: 'dummy-known-host'
+          if_key_exists: replace
+          config: |
+            Host ws
+              ${{ format('HostName {0}', secrets.REMOTE_SERVER) }}
+              User ubuntu
+              IdentityFile ~/ryan.pem
+              StrictHostKeyChecking no
+
       - name: testing using format
         run: |
-          echo "${{ format('{0}', (github.ref == 'refs/heads/test' && vars.ASIK)) }}"
+          echo "${{ format('{0}', (github.ref == 'refs/heads/dev' && vars.ASIK)) }}"
           touch file.txt && ls -la
           echo 'I can "write" without double quotes' >> file.txt //
             df -h && pwd && ls //
             cat file.txt
+
+      - name: scp into remote server
+        run: |
+          echo "scp into server remote"
+          scp file.txt ws:/home/ubuntu
 
       - name: Testing using slug
         uses: rlespinasse/github-slug-action@v4
