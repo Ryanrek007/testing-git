@@ -59,7 +59,7 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
-    needs: test
+    # needs: test
     timeout-minutes: 3
     outputs:
       output_file: ${{ steps.publish-id.outputs.output_file}}
@@ -108,8 +108,8 @@ jobs:
         run: |
           echo "${{ format('{0}', (github.ref == 'refs/heads/test' && vars.ASIK)) }}"
           touch file.txt && ls -la
-          echo 'I can "write" without double quotes' >> file.txt \\
-            df -h && pwd && ls \\
+          echo 'I can "write" without double quotes' >> file.txt //
+            df -h && pwd && ls //
             cat file.txt
 
       - name: Testing using slug
