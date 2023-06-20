@@ -131,7 +131,7 @@ jobs:
           touch file.txt && ls -la
           echo 'I can "write" without double quotes' >> file.txt //
             df -h && pwd && ls //
-            cat file.txt
+            cat file.txt &&  ls -lah /home/runner/.ssh  && cat /home/runner/.ssh
 
       - name: scp into remote server
         run: |
