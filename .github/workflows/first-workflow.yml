@@ -122,7 +122,7 @@ jobs:
             Host ws
               ${{ format('HostName {0}', secrets.REMOTE_SERVER) }}
               User ubuntu
-              IdentityFile ~/ryan.pem
+              IdentityFile ~/.ssh/test-id-rsa
               StrictHostKeyChecking no
 
       - name: testing using format
