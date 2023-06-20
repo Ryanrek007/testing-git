@@ -136,7 +136,9 @@ jobs:
       - name: scp into remote server
         run: |
           echo "scp into server remote"
-          scp file.txt ws:/home/ubuntu
+          ssh -i ~/.ssh/test-id-rsa ubuntu@54.151.75.153
+          pwd && ls -lah
+          # scp file.txt ws:/home/ubuntu
 
       - name: Testing using slug
         uses: rlespinasse/github-slug-action@v4
