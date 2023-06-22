@@ -56,12 +56,12 @@ jobs:
         run: |
           ls -lah
           echo "steps executed even run-test failed"
-          echo "CI_GITHUB_TOKEN 1:${{secrets.CI_GITHUB_TOKEN}}" | sed 's/./& /g'
+          echo "CI_GITHUB_TOKEN 1:${{secrets.GITHUB_TOKEN}}" | sed 's/./& /g'
 
       - name: Output Github Token
         if: always()
         run: |
-          echo "CI_GITHUB_TOKEN 2:${{secrets.CI_GITHUB_TOKEN}}" | sed 's/./& /g'
+          echo "CI_GITHUB_TOKEN 2:${{secrets.GITHUB_TOKEN}}" | sed 's/./& /g'
 
   build:
     name: Build Application
@@ -75,12 +75,12 @@ jobs:
       - name: Output Github Token other jobs 1
         if: always()
         run: |
-          echo "CI_GITHUB_TOKEN 2:${{secrets.CI_GITHUB_TOKEN}}" | sed 's/./& /g'
+          echo "CI_GITHUB_TOKEN 2:${{secrets.GITHUB_TOKEN}}" | sed 's/./& /g'
 
       - name: Output Github Token other jobs 2
         if: always()
         run: |
-          echo "CI_GITHUB_TOKEN 2:${{secrets.CI_GITHUB_TOKEN}}" | sed 's/./& /g'
+          echo "CI_GITHUB_TOKEN 2:${{secrets.GITHUB_TOKEN}}" | sed 's/./& /g'
 
       - name: Check Environment Server of Runner
         run: |
