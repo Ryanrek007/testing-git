@@ -24,7 +24,7 @@ jobs:
           node -v
           ls -lah
           echo "refs ke: ${{ github.ref }}"
-          sleep 50
+          # sleep 50
           echo "----"
           
       - name: Checkout / Get Code
@@ -33,6 +33,8 @@ jobs:
       - name: output echo hashfiles test
         run: |
           echo "deps-node-${{ hashFiles('**/package-lock.json') }}"
+          pwd
+          ls          
 
       - name: load and cache dependencies
         id: cache-deps
