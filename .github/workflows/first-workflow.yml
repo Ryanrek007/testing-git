@@ -101,6 +101,12 @@ jobs:
           echo "NTESTFAILED=$NTESTFAILED" >> $GITHUB_ENV
           
           echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
+          
+      - name: PTEST
+        run: |  
+          PTEST=$(($NTESTPASSED / $NTESTTOTAL))
+          echo "PTEST=$PTEST" >> $GITHUB_ENV
+
 
       - name: retrive test tests case
         run: |  
@@ -110,7 +116,8 @@ jobs:
 
       - name: Adding markdown
         run: |
-          echo "### TEST PASSED: $NTESTPASSED" >> $GITHUB_STEP_SUMMARY
+          echo "### Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total" >> $GITHUB_STEP_SUMMARY
+          echo "### PTEST Score: $PTEST" >> $GITHUB_STEP_SUMMARY
     
 
 
