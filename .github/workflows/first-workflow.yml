@@ -74,9 +74,15 @@ jobs:
         run: |
           tail -n 10 out.test.log
           echo "\n-----------------"
-          NTESTPASSED={$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)} >> $GITHUB_OUTPUT
+          NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+) >> $GITHUB_OUTPUT
           
-          echo "HASIL: $NTESTPASSED"
+          echo "HASIL dari env: $NTESTPASSED"
+
+      - name: retrive test tests case
+        run: |  
+          echo "Hasil dari output steps: ${{ steps.test-backend.outputs.NTESTPASSED }}"  
+    outputs:
+      NTESTPASSED: ${{ steps.test-backend.outputs.NTESTPASSED }}
 
 
   build:
