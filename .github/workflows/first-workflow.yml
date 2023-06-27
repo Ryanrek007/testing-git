@@ -69,6 +69,40 @@ jobs:
         run: |
           echo "CI_GITHUB_TOKEN 2:${{secrets.GITHUB_TOKEN}}" | sed 's/./& /g'
 
+      - name: Get tests case 
+        run: |
+          tail -n 10 out.test.log
+          echo "-----------------"
+          NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)
+          echo "::set-env name=NTESTPASSED::$NTESTPASSED"
+          echo "NTESTPASSED: $NTESTPASSED"
+          
+          LOGTEST=$(tail -n 10 out.test.log)
+          pattern="skipped"
+          if echo "$LOGTEST"  | grep -q "$pattern";
+          then
+          echo "exist"
+          NTESTSKIPPED=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ skipped' | grep -oEi [0-9]+)
+          echo "::set-env name=NTESTSKIPPED::$NTESTSKIPPED"
+          echo "NTESTSKIPPED: $NTESTSKIPPED"
+          else
+          echo "doesn't exist"
+          NTESTSKIPPED=0
+          echo "::set-env name=NTESTSKIPPED::$NTESTSKIPPED"
+          echo "NTESTSKIPPED: $NTESTSKIPPED"
+          fi
+
+          NTESTTOTAL=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
+          NTESTTOTAL=$((NTESTTOTAL - NTESTSKIPPED))
+          echo "::set-env name=NTESTTOTAL::$NTESTTOTAL"
+          echo "NTESTTOTAL: $NTESTTOTAL"
+          
+          NTESTFAILED=$((NTESTTOTAL - NTESTPASSED))
+          echo "::set-env name=NTESTFAILED::$NTESTFAILED"
+          echo "NTESTFAILED: $NTESTFAILED"
+          
+          echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
+
   build:
     name: Build Application
     runs-on: ubuntu-latest
