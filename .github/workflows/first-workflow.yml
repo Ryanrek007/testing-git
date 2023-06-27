@@ -78,11 +78,17 @@ jobs:
           NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)
           
           echo "NTESTPASSED=$NTESTPASSED" >> $GITHUB_ENV
+          echo "Hasil= $NTESTPASSED"
 
       - name: retrive test tests case
         run: |  
           echo "hasil asik: ${{ steps.test-backend.outputs.asik }}"
           echo "Hasil dari output steps: $NTESTPASSED"
+
+
+      - name: Adding markdown
+        run: |
+          echo "### TEST PASSED: $NTESTPASSED" >> $GITHUB_STEP_SUMMARY
     
 
 
