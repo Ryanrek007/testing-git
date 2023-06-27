@@ -114,8 +114,8 @@ jobs:
         run: |  
           echo "hasil asik: ${{ steps.test-backend.outputs.asik }}"
           echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
-          TEMSCORE=$("scale = 2; 52,76 * 57,35 * $PTEST * (5/0.8)" | bc)
-          echo $TEMSCORE
+          echo "scale = 2; 52,76 * 57,35 * $PTEST * (5/0.8)" | bc
+          # echo $TEMSCORE
 
 
       - name: Adding markdown
