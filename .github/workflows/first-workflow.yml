@@ -74,7 +74,7 @@ jobs:
         run: |
           tail -n 10 out.test.log
           echo "\n-----------------"
-          NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+) >> $GITHUB_OUTPUT
+          echo 'NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)' >> $GITHUB_OUTPUT
           
           echo "HASIL dari env: $NTESTPASSED"
 
