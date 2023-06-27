@@ -93,19 +93,19 @@ jobs:
           echo "$NTESTSKIPPED"
           fi
 
-          # NTESTTOTAL=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
-          # NTESTTOTAL=$((NTESTTOTAL - NTESTSKIPPED))
-          # echo "NTESTTOTAL=$NTESTTOTAL" >> $GITHUB_ENV
+          NTESTTOTAL=$(tail -n 10 $out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
+          NTESTTOTAL=$((NTESTTOTAL - NTESTSKIPPED))
+          echo "NTESTTOTAL=$NTESTTOTAL" >> $GITHUB_ENV
           
-          # NTESTFAILED=$((NTESTTOTAL - NTESTPASSED))
-          # echo "NTESTFAILED=$NTESTFAILED" >> $GITHUB_ENV
+          NTESTFAILED=$((NTESTTOTAL - NTESTPASSED))
+          echo "NTESTFAILED=$NTESTFAILED" >> $GITHUB_ENV
           
-          # echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
+          echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
 
       - name: retrive test tests case
         run: |  
           echo "hasil asik: ${{ steps.test-backend.outputs.asik }}"
-          echo "Hasil dari output steps: $NTESTPASSED"
+          echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
 
 
       - name: Adding markdown
