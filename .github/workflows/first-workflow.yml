@@ -77,14 +77,14 @@ jobs:
           echo 'asik=$(date +'%Y-%m-%dT%H%M%S')' >> $GITHUB_OUTPUT
           NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)
 
-          echo 'hasil=$NTESTPASSED' >> $GITHUB_OUTPUT
+          echo 'hasil=${{ env.NTESTPASSED }}' >> $GITHUB_OUTPUT
           
           echo "HASIL dari env: $NTESTPASSED"
 
       - name: retrive test tests case
         run: |  
           echo "hasil asik: ${{ steps.test-backend.outputs.asik }}"
-          echo "Hasil dari output steps: ${{ steps.test-backend.outputs.asik }}"  
+          echo "Hasil dari output steps: ${{ steps.test-backend.outputs.hasil }}"  
     
 
 
