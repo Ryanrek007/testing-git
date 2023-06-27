@@ -76,6 +76,7 @@ jobs:
 
           NTESTPASSED=$(tail -n 10 out.test.log | grep '^Tests:' | grep -oEi '[0-9]+ passed' | grep -oEi [0-9]+)
           echo "NTESTPASSED=$NTESTPASSED" >> $GITHUB_ENV
+          echo "$NTESTPASSED"
           
           LOGTEST=$(tail -n 10 out.test.log)
           pattern="skipped"
@@ -84,20 +85,22 @@ jobs:
           echo "exist"
           NTESTSKIPPED=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ skipped' | grep -oEi [0-9]+)
           echo "NTESTSKIPPED=$NTESTSKIPPED" >> $GITHUB_ENV
+          echo "$NTESTSKIPPED"
           else
           echo "doesn't exist"
           NTESTSKIPPED=0
           echo "NTESTSKIPPED=$NTESTSKIPPED" >> $GITHUB_ENV
+          echo "$NTESTSKIPPED"
           fi
 
-          NTESTTOTAL=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
-          NTESTTOTAL=$((NTESTTOTAL - NTESTSKIPPED))
-          echo "NTESTTOTAL=$NTESTTOTAL" >> $GITHUB_ENV
+          # NTESTTOTAL=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
+          # NTESTTOTAL=$((NTESTTOTAL - NTESTSKIPPED))
+          # echo "NTESTTOTAL=$NTESTTOTAL" >> $GITHUB_ENV
           
-          NTESTFAILED=$((NTESTTOTAL - NTESTPASSED))
-          echo "NTESTFAILED=$NTESTFAILED" >> $GITHUB_ENV
+          # NTESTFAILED=$((NTESTTOTAL - NTESTPASSED))
+          # echo "NTESTFAILED=$NTESTFAILED" >> $GITHUB_ENV
           
-          echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
+          # echo "Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total"
 
       - name: retrive test tests case
         run: |  
