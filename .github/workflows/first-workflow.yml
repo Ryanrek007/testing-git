@@ -85,12 +85,12 @@ jobs:
           echo "exist"
           NTESTSKIPPED=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ skipped' | grep -oEi [0-9]+)
           echo "NTESTSKIPPED=$NTESTSKIPPED" >> $GITHUB_ENV
-          echo "$NTESTSKIPPED"
+          echo "$((NTESTSKIPPED))"
           else
           echo "doesn't exist"
           NTESTSKIPPED=0
           echo "NTESTSKIPPED=$NTESTSKIPPED" >> $GITHUB_ENV
-          echo "$NTESTSKIPPED"
+          echo "$((NTESTSKIPPED))"
           fi
 
           # NTESTTOTAL=$(tail -n 10 $file | grep '^Tests:' | grep -oEi '[0-9]+ total' | grep -oEi [0-9]+)
