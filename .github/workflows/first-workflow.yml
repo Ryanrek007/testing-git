@@ -82,7 +82,7 @@ jobs:
       - name: retrive test tests case
         run: |  
           echo "hasil asik: ${{ steps.test-backend.outputs.asik }}"
-          echo "Hasil dari output steps: "$NTESTPASSED"
+          echo "Hasil dari output steps: $NTESTPASSED"
     
 
 
