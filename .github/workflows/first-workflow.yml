@@ -123,6 +123,15 @@ jobs:
         run: |
           echo "### Tests: $NTESTFAILED failed, $NTESTSKIPPED skipped, $NTESTPASSED passed, $NTESTTOTAL total" >> $GITHUB_STEP_SUMMARY
           echo "# Tem Score Score: $TEMSCORE" >> $GITHUB_STEP_SUMMARY
+
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1.3
+
+      - name: Print Public IP
+        run: |
+          echo ${{ steps.ip.outputs.ipv4 }}
+          echo ${{ steps.ip.outputs.ipv6 }}
     
 
 
