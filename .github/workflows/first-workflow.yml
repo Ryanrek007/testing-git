@@ -248,7 +248,7 @@ jobs:
     needs: [build, test]
     if: |
       always()
-      && contains(needs.*.result, 'success') || 
+      && contains(needs.*.result, 'success') 
       && !contains(needs.*.result, 'failure')
     steps:
       - name: Output Content before getting artifact
