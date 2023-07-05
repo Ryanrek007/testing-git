@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     if: |
-      (contains(github.event.head_commit.message '[UI]')
+      (contains(github.event.head_commit.message '[UI]'))
     steps:
       - name: Check Environment Server of Runner
         run: |
@@ -145,7 +145,7 @@ jobs:
       output_file: ${{ steps.publish-id.outputs.output_file}}
       output_file2: ${{ steps.publish-id.outputs.asik }}
     if: |
-      (contains(github.event.head_commit.message '[Server API]')
+      (contains(github.event.head_commit.message '[Server API]'))
     steps:
       - name: Output Github Token other jobs 1
         if: always()
