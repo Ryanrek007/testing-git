@@ -78,3 +78,15 @@ runs:
         echo "======================="  
 
         cat ${{ inputs.file }}
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+         name: timestamp
+         path: |
+           ${{ inputs.file }}
+
+    - name: Getting Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: timestamp
