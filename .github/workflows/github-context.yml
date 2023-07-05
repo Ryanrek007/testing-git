@@ -6,7 +6,7 @@ on:
   workflow_dispatch: 
   push:
      branches:
-       - dev
+       #- dev
        #- test
        - relase/**
        - asik

@@ -1,0 +1,98 @@
+name: 'Setup deployment timestamp'
+description: 'setup deployment timestamp'
+inputs:
+  file:
+    description: 'environment file'
+    default: 'deploy-timestamp.txt'
+  BUILD_FRONTEND:
+    required: true
+  BUILD_BACKEND:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    # - name: create dummy deploy timestamp
+    #   shell: bash
+    #   run: |
+    #     touch ${{ inputs.file }}
+    - name: Check unit test report
+      id: check_files
+      if: always()
+      uses: andstor/file-existence-action@v2
+      with:
+        files: 'deploy-timestamp-production.txt'
+
+    - name: set image deploy timestamp
+      shell: bash
+      run: |
+        echo "check ${{ inputs.file }}:"        
+
+        if [ -f ${{ inputs.file }} ]; then
+          echo "${{ inputs.file }} exists."
+        else
+          echo "${{ inputs.file }} does not exists."
+        fi
+        
+        cat ${{ inputs.file }}
+        echo "======================="        
+        
+        echo "BUILD_FRONTEND=${{ inputs.BUILD_FRONTEND }}"
+        echo "BUILD_BACKEND=${{ inputs.BUILD_BACKEND }}"
+        echo "======================="  
+        
+        TIME_FE=$(sed -n -e '/FRONTEND=/ s/.*\= *//p' ${{ inputs.file }})
+        TIME_BE=$(sed -n -e '/BACKEND=/ s/.*\= *//p' ${{ inputs.file }})
+
+        timestamp=$(date +%s)
+
+        echo "BUILD_FRONTEND: ${{ inputs.BUILD_FRONTEND }}"
+
+        if grep -wq "FRONTEND" ${{ inputs.file }}; then
+          if [ "${{ inputs.BUILD_FRONTEND }}" == 'true' ]; then
+            echo "FRONTEND key exists"
+            sed -i "/^FRONTEND/s/=.*$/=$timestamp/" ${{ inputs.file }}
+            TIME_FE=$timestamp
+          fi
+        else
+          echo "FRONTEND key does not exists"
+          echo "FRONTEND=$timestamp" >> ${{ inputs.file }}
+          TIME_FE=$timestamp
+        fi
+        echo "======================="  
+
+        echo "BUILD_BACKEND: ${{ inputs.BUILD_BACKEND }}"
+
+        if grep -wq "BACKEND" ${{ inputs.file }}; then
+          if [ "${{ inputs.BUILD_BACKEND }}" == 'true' ]; then
+            echo "BACKEND key exists"
+            sed -i "/^BACKEND/s/=.*$/=$timestamp/" ${{ inputs.file }}
+            TIME_BE=$timestamp
+          fi
+        else
+          echo "BACKEND key does not exists"
+          echo "BACKEND=$timestamp" >> ${{ inputs.file }}
+          TIME_BE=$timestamp
+        fi
+        echo "======================="  
+
+        echo "TIMESTAMP_BACKEND=$TIME_BE" >> $GITHUB_ENV
+        echo "TIMESTAMP_FRONTEND=$TIME_FE" >> $GITHUB_ENV
+
+        echo "timestamp=$timestamp"
+        echo "TIMESTAMP_BACKEND=$TIME_BE" 
+        echo "TIMESTAMP_FRONTEND=$TIME_FE"
+        echo "======================="  
+
+        cat ${{ inputs.file }}
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+         name: timestamp
+         path: |
+           ${{ inputs.file }}
+
+    - name: Getting Build Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: timestamp

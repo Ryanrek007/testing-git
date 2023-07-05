@@ -1,0 +1,26 @@
+
+
+      at teams/chat-shortcut.service.spec.ts:56:3
+      at Object.<anonymous> (teams/chat-shortcut.service.spec.ts:9:1)
+
+
+  ● Test suite failed to run
+
+    ConnectionNotFoundError: Connection "test" was not found.
+
+      at ConnectionNotFoundError.TypeORMError [as constructor] (error/TypeORMError.ts:7:9)
+      at new ConnectionNotFoundError (error/ConnectionNotFoundError.ts:8:9)
+      at ConnectionManager.Object.<anonymous>.ConnectionManager.get (connection/ConnectionManager.ts:42:19)
+      at getConnection (globals.ts:103:35)
+      at DBHelper.getConnection (core/testing/db.ts:53:25)
+      at DBHelper.close (core/testing/db.ts:57:16)
+      at teams/chat-shortcut.service.spec.ts:68:20
+
+
+Test Suites: 3 failed, 33 passed, 36 total
+Tests:       15 failed, 2 skipped, 228 passed, 245 total
+Snapshots:   0 total
+Time:        383.82 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
