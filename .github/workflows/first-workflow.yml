@@ -177,13 +177,13 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: |
-            dist/
-            package.json
+      # - name: upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: dist
+      #     path: |
+      #       dist/
+      #       package.json
 
       - name: Output Content
         run: ls -a
@@ -248,16 +248,16 @@ jobs:
     needs: [build, test]
     if: |
       always()
-      && contains(needs.*.result, 'success') || contains(needs.*.result, 'skipped')
+      && contains(needs.*.result, 'success') || 
       && !contains(needs.*.result, 'failure')
     steps:
       - name: Output Content before getting artifact
         run: ls -a
       
-      - name: Getting Build Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
+      # - name: Getting Build Artifacts
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: dist
       - name: output filename from build jobs
         run: |
           echo  "${{ needs.build.outputs.output_file}}"
