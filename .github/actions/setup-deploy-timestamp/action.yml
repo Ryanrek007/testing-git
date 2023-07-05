@@ -11,10 +11,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: create dummy deploy timestamp
-      shell: bash
-      run: |
-        touch ${{ inputs.file }}
+    # - name: create dummy deploy timestamp
+    #   shell: bash
+    #   run: |
+    #     touch ${{ inputs.file }}
     - name: Check unit test report
       id: check_files
       if: always()
