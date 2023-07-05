@@ -11,16 +11,16 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: create dummy deploy timestamp
-    #   shell: bash
-    #   run: |
-    #     touch ${{ inputs.file }}
-    - name: Check unit test report
-      id: check_files
-      if: always()
-      uses: andstor/file-existence-action@v2
-      with:
-        files: 'deploy-timestamp-production.txt'
+    - name: create dummy deploy timestamp
+      shell: bash
+      run: |
+        touch ${{ inputs.file }}
+    # - name: Check unit test report
+    #   id: check_files
+    #   if: always()
+    #   uses: andstor/file-existence-action@v2
+    #   with:
+    #     files: 'deploy-timestamp-production.txt'
 
     - name: set image deploy timestamp
       shell: bash
