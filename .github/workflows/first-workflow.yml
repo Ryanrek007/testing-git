@@ -275,7 +275,7 @@ jobs:
   post-deploy:
     name: post Deploy Jobs
     runs-on: ubuntu-latest
-    needs: [deploy, build, test]
+    needs: [deploy]
     if: |
       always()
       && contains(needs.*.result, 'success')
